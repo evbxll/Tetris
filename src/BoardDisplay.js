@@ -1,43 +1,59 @@
 import React from 'react';
 
-
 export default function StylizedBoardDisplay(props) {
+    const game_board = props.inputboard || [];
+    const width = props.inputwidth || 10;
+    const paused = !!props.paused;
 
-    var game_board = props.inputboard;
-    var width = props.inputwidth;
-    var height = props.inputheight;
-    
-    //DISPLAYS THE BOARD IN A WAY THAT I CAN VISUALLY CONFIRM CHANGES
-    let rows_ind = [];
-    for (let row = 0; row < height; row++) {
-      rows_ind.push(row);
+    const cellClass = (val) => {
+        if (val === 0) return 'cell empty';
+        if (val === 1) return 'cell ghost';
+        if (val < 0) return `cell active t${Math.abs(val)}`;
+        return `cell placed t${val}`;
+    };
+
+    if (!Array.isArray(game_board) || game_board.length === 0 || !Array.isArray(game_board[0])) {
+        return null;
     }
 
-    let cols_ind = [];
-    for (let col = 0; col < width+2; col++) {
-      cols_ind.push(col);
-    }
+    // Show all rows; first 4 are the spawn buffer
+    const rows = game_board;
 
-
-    let c = 'c'; //USED TO MAKE ID FOR EACH CELL 'C' FOLLOWED BY NUMBER
-    let r = 'r';
     return (
-        <div className="TetrisBoard">
-            <tr className='TetrisRow'> 
-            {cols_ind.map((col) => <td className='TetrisCell' id={c+'Border'}></td> )} 
-            </tr>
-        
-            {rows_ind.map((row) => (
-                <tr className='TetrisRow' id={r+row}> 
-                    <td className='TetrisCell' id={c+'Border'}></td>
-                    {game_board[row].map((col) => <td className='TetrisCell' id={c+col}></td> )} 
-                    <td className='TetrisCell' id={c+'Border'}></td>
-                </tr>
+        <div className="TetrisBoard" role="grid" style={{ position: 'relative' }}>
+            {/* Top border */}
+            <div className="row border">
+                {Array.from({ length: width + 2 }).map((_, i) => (
+                    <div key={`tb-${i}`} className="cell border-cell" />
+                ))}
+            </div>
+
+            {/* Playfield rows with left/right borders */}
+            {rows.map((row, rIdx) => (
+                <div className={`row ${rIdx < 4 ? 'buffer' : ''} ${rIdx === 3 ? 'buffer-boundary' : ''}`} key={rIdx} style={{ display:'grid', gridTemplateColumns: `16px repeat(${width}, 16px) 16px`, gap: '2px' }}>
+                    <div className="cell border-cell wall-cell" />
+                    {row.map((cell, cIdx) => (
+                        <div key={cIdx} className={cellClass(cell)} />
+                    ))}
+                    <div className="cell border-cell wall-cell" />
+                </div>
             ))}
 
-            <tr className='TetrisRow'> 
-            {cols_ind.map((col) => <td className='TetrisCell' id={c+'Border'}></td> )} 
-            </tr>
+            {/* Bottom border */}
+            <div className="row border bottom-border">
+                {Array.from({ length: width + 2 }).map((_, i) => (
+                    <div key={`bb-${i}`} className="cell border-cell floor-cell" />
+                ))}
+            </div>
+
+            {paused && (
+                <div className="paused-overlay" role="status" aria-live="polite">
+                    <div className="paused-card">
+                        <div className="paused-title">Paused</div>
+                        <div className="paused-sub">Press F to resume</div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }

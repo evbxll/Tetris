@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/Evan-Bell/Tetris.git/static/css/main.72f87630.chunk.css",
+    "main.js": "/Evan-Bell/Tetris.git/static/js/main.8eda4ccc.chunk.js",
+    "main.js.map": "/Evan-Bell/Tetris.git/static/js/main.8eda4ccc.chunk.js.map",
+    "runtime-main.js": "/Evan-Bell/Tetris.git/static/js/runtime-main.ec313e6a.js",
+    "runtime-main.js.map": "/Evan-Bell/Tetris.git/static/js/runtime-main.ec313e6a.js.map",
+    "static/js/2.3181679e.chunk.js": "/Evan-Bell/Tetris.git/static/js/2.3181679e.chunk.js",
+    "static/js/2.3181679e.chunk.js.map": "/Evan-Bell/Tetris.git/static/js/2.3181679e.chunk.js.map",
+    "static/js/3.fb95c282.chunk.js": "/Evan-Bell/Tetris.git/static/js/3.fb95c282.chunk.js",
+    "static/js/3.fb95c282.chunk.js.map": "/Evan-Bell/Tetris.git/static/js/3.fb95c282.chunk.js.map",
+    "index.html": "/Evan-Bell/Tetris.git/index.html",
+    "static/css/main.72f87630.chunk.css.map": "/Evan-Bell/Tetris.git/static/css/main.72f87630.chunk.css.map",
+    "static/js/2.3181679e.chunk.js.LICENSE.txt": "/Evan-Bell/Tetris.git/static/js/2.3181679e.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ec313e6a.js",
+    "static/js/2.3181679e.chunk.js",
+    "static/css/main.72f87630.chunk.css",
+    "static/js/main.8eda4ccc.chunk.js"
+  ]
+}

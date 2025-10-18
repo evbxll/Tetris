@@ -49,13 +49,13 @@ export default class Board {
       [0, 0],
       [0, 0],
     ];
-    this.hold = 0;
+  this.hold = 4; // default hold: I piece (vertical block)
     this.hold_swapped = false
     this.next = [0, 0, 0]; //stores next three not including one in play
     this.highlevel = 0;
     this.highscore = 0;
     this.droptime = 900;
-    this.interval = setInterval(() => {this.piece_fall()}, this.droptime);
+    this.interval = null; // do not auto-start; App/controls will call start_drop()
     this.create_board();
   }
 
@@ -250,16 +250,10 @@ export default class Board {
     let [new_coor_left, new_piv_left] = this.shift_coor(new_coor, this.pivot, 0, -1);
     let [new_coor_right, new_piv_right] = this.shift_coor(new_coor, this.pivot, 0, 1);
 
-    console.log(new_coor)
-    console.log(new_coor_down)
-    console.log(new_coor_left)
-    console.log(new_coor_right)
-    console.log(new_coor_up)
-
 
     //CHECKS THAT NEW POSSIBLE COOR ARE VALID
     if (this.coor_is_valid(new_coor)) {
-      let throw_away;
+      // no-op: rotation is valid and we'll use new_coor as-is
     } else if (this.coor_is_valid(new_coor_down)) {
       new_coor = new_coor_down;
       this.pivot = new_piv_down;
@@ -570,7 +564,7 @@ export default class Board {
       [0, 0],
       [0, 0],
     ];
-    this.hold = 0;
+  this.hold = 4; // reset default hold to I piece
     this.hold_swapped = false;
     this.next = [0, 0, 0]; //stores next three not including one in play
     this.create_board();
@@ -602,11 +596,16 @@ export default class Board {
   }
 
   stop_drop(){
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
+    this.interval = null;
   }
 
   start_drop(){
-    clearInterval(this.interval);
+    if (this.interval) {
+      clearInterval(this.interval);
+    }
     this.interval = setInterval(() => {this.piece_fall()}, this.droptime);
   }
 }
